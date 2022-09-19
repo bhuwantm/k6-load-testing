@@ -1,0 +1,46 @@
+
+version: '3'
+
+volumes:
+  prometheus-data:
+    driver: local
+
+  grafana-data:
+    driver: local
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.37.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus:/etc/prometheus
+      - ./prometheus/data:/etc/prometheus/data
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:v1.3.1
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
+
+  grafana:
+    image: grafana/grafana:9.1.5
+    container_name: grafana
+    ports:
+      - "9091:3000"
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+    restart: unless-stopped
+    user: "1001" # get this user id using command {{id -u}}
+    depends_on:
+      - prometheus
