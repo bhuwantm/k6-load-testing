@@ -24,6 +24,17 @@ Run the demo test script using following command:
 
 `docker-compose run k6 run /tests/script.js`
 
+**Note: For detail grafana setup see [Grafana Setup](#grafana-setup) setction below**
+
+&nbsp;
+
+## Notes:
+
+- All this is setup in our local machine only
+- The system metrcis collected by node_exporter is from our localhost, as it installed locally
+- To collect the system metrics from another server we need to install node_exporter to that server and configure it in prometheus.yml
+- The API endpoint used in this demo is "http://test.k6.io" (provided by k6). So, the API metrics collected is for this endpoint.
+
 &nbsp;
 
 ## Prometheus
@@ -68,3 +79,32 @@ Open source load testing tool for testing the performance of your backend infras
 
 - Written in Go for faster performance
 - Test Script is written in javascript
+
+&nbsp;
+
+# Grafana Setup
+
+Go to Grfana URL and login using the username and password provided in .env file.
+http://localhost:9091
+
+**Add Prometheus data source using following settings**
+
+![Prometheus Settings](./assets/prometheus-settings.png)
+
+**Add influxdb data source using following settings**
+
+Use usename and password as defined in .env file.
+
+Note: If there is no data in influxdb then it might show error which is fine for now.
+
+![InfluxDB Settings](./assets/influxdb-settings.png)
+
+**Import Dashboard Developed by community or build your own**
+Explore dashboard from [Graphana Dashboards](https://grafana.com/grafana/dashboards/) and import as required using Dashboard ID.
+
+![Import Dashboard](./assets/import-dashboard.png)
+
+Suggested dashboard:
+
+- [Node Exporter Full](https://grafana.com/grafana/dashboards/1860-node-exporter-full/)
+- [k6 Load Testing Results](https://grafana.com/grafana/dashboards/2587-k6-load-testing-results/)
