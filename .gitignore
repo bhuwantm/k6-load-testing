@@ -1,2 +1,5 @@
 grafana/data
 prometheus/data
+influxdb/data
+.env
+.env.*
