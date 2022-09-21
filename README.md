@@ -1,4 +1,4 @@
-# Load Testing and Visualization using k6, prometheus and Grafana
+# Load Testing and Visualization using k6, Prometheus and Grafana
 
 Tools used:
 
@@ -68,9 +68,3 @@ Open source load testing tool for testing the performance of your backend infras
 
 - Written in Go for faster performance
 - Test Script is written in javascript
-
-&nbsp;
-
-## Running Test
-
-`docker-compose run k6 run /tests/script.js`
